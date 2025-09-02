@@ -1,5 +1,5 @@
+# Ignore local node modules, logs, and environment files
 node_modules/
 *.log
+.env
 .DS_Store
-*.zip
-.git
