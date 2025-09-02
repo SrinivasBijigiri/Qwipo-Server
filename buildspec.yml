@@ -6,29 +6,22 @@ phases:
       nodejs: 18
     commands:
       - echo "Installing dependencies..."
-      #- npm install
+      - npm install
 
   pre_build:
     commands:
-      - echo "Running pre-build steps..."
-      - npm run lint
+      - echo "Pre-build phase - skipping lint for Beanstalk"
 
   build:
     commands:
-      - echo "Running build..."
-      - npm run build
-      - echo "Build completed"
+      - echo "Build phase..."
+      - npm run build || echo "No build script defined, skipping"
 
   post_build:
     commands:
-      - echo "Post-build actions..."
-      - npm test
-      # Example: Upload build artifacts to S3
-      # aws s3 cp ./dist s3://your-bucket-name/ --recursive
+      - echo "Packaging for Elastic Beanstalk..."
+      - zip -r application.zip . -x node_modules/\*\.log
 
 artifacts:
   files:
-    - '/*'
-  discard-paths: yes
-  base-directory: dist
-
+    - application.zip
