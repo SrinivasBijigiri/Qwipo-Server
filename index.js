@@ -15,11 +15,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Routes
 app.use('/api', apiRoutes);
 
-// Initialize database and start server
+// Root health check route
+app.get('/', (req, res) => res.send('OK'));
+
+// Initialize database (non-blocking) and start server
 initDatabase().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-  });
+  console.log('Database initialized successfully.');
 }).catch(err => {
-  console.error('Failed to initialize database:', err);
+  console.error('Database initialization failed:', err);
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
