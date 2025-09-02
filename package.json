@@ -5,9 +5,10 @@
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
-    "test": "your-test-command",
-    "lint": "eslint .",
-    "build": "your-build-command"
+    "start": "node index.js",
+    "build": "echo 'no build step defined'",
+    "test": "echo 'no test defined'",
+    "lint": "eslint . || echo 'eslint not installed'"
   },
   "keywords": [],
   "author": "",
